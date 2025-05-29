@@ -13,7 +13,7 @@ npm install
 ````
 ng serve
 ````
-## Download the database and restore the it using this
+## Download the database and restore it using this
 ````
 https://drive.google.com/file/d/1MIuoFhqqVRztOvveG5KRN35v3kiMbhRg/view?usp=sharing
 ````

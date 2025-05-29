@@ -13,6 +13,8 @@ export class InvoiceFormComponent implements OnInit, OnDestroy {
    items:any
    submittedInvoice:any
    private destroyed$ = new Subject<void>();
+   errorMessage: string = '';
+   loading: boolean = false;
 
   constructor(
     private  fb: FormBuilder,
@@ -22,7 +24,7 @@ export class InvoiceFormComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
    this.invoiceForm = this.fb.group({
     transactionDate: ['',Validators.required],
-    discount: [''],
+    discount: [0],
     items: this.fb.array([
       this.createItem() // Initialize with one item
     ]),
@@ -51,7 +53,8 @@ export class InvoiceFormComponent implements OnInit, OnDestroy {
       alert("Please fill all required fields");
       return;
     }
-    alert(JSON.stringify(this.invoiceForm.value));
+
+    this.loading = true;
 
     const payload = {
       ...this.invoiceForm.value,
@@ -59,16 +62,26 @@ export class InvoiceFormComponent implements OnInit, OnDestroy {
     this.invoiceSerice.generatetInvoices(payload).subscribe({
       next: (response) => {
         this.submittedInvoice = response;
-        alert("Invoice submitted successfully");
          this.invoiceForm.reset({
           transactionDate: '',
           discount: ''
         });
         this.item.clear();
         this.addItem();
+        this.loading = false;
+
+         setTimeout(() => {
+        this.errorMessage = '';
+      }, 7000);
       },
       error: (error) => {
-        console.error("Error submitting invoice", error);
+        this.loading = false;
+        console.error('Error:', error);
+        this.errorMessage = error?.error?.message || 'An error occurred. Please try again.';
+
+         setTimeout(() => {
+        this.errorMessage = '';
+      }, 5000);
       }
     });
 

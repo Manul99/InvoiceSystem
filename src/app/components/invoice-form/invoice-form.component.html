@@ -54,6 +54,10 @@
     </div>
   
   </form>
+  <div class="mb-4"></div>
+   <div *ngIf="loading" class="alert alert-info">Generating invoice, please wait...</div>
+    <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
+
 
   <div class="mb-5"></div>
   <div *ngIf="submittedInvoice" class="mt-5 text-white">
@@ -61,7 +65,7 @@
     <div class="card bg-light text-dark">
       <div class="card-body">
         <p><strong>Date:</strong> {{ submittedInvoice.transactionDate | date }}</p>
-        <p><strong>Discount:</strong> Rs. {{ submittedInvoice.discount }}</p>
+        <p><strong>Discount:</strong>{{ submittedInvoice.discount }}%</p>
         <p><strong>Total Amount:</strong> Rs. {{ submittedInvoice.totalAmount }}</p>
         <p><strong>Balance Amount:</strong> Rs. {{ submittedInvoice.balanceAmount }}</p>
 

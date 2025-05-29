@@ -1,21 +1,24 @@
-<!-- invoice.component.html with @ng-bootstrap/ng-bootstrap -->
-<div class="container mt-5">
-  <h2 class="mb-4">Create Invoice</h2>
+<div class="main-wrapper">
+  <h1 class="text-center text-white py-4">Welcome to MC Computers!</h1>
+
+<div class="container mt-5 bg-transparent">
+  <h2 class="mb-4 text-white">Create Invoice</h2>
   <form [formGroup]="invoiceForm" (ngSubmit)="submitInvoice()">
     <div class="row mb-3">
-      <label class="col-sm-2 col-form-label">Transaction Date</label>
+      <label class="col-sm-2 col-form-label text-white">Transaction Date</label>
       <div class="col-sm-10">
         <input type="date" class="form-control" formControlName="transactionDate">
       </div>
     </div>
     <div class="row mb-3">
-      <label class="col-sm-2 col-form-label">Discount</label>
+      <label class="col-sm-2 col-form-label text-white">Discount</label>
       <div class="col-sm-10">
         <input type="number" class="form-control" formControlName="discount">
       </div>
     </div>
 
-    <h4>Invoice Items</h4>
+    <div class="mb-5 text-white"></div>
+    <h4 class="text-white">Invoice Items</h4>
     <div formArrayName="items">
       <div class="card mb-3" *ngFor="let item of item.controls; let i = index" [formGroupName]="i">
         <div class="card-body">
@@ -38,6 +41,9 @@
         </div>
       </div>
     </div>
+
+    <div class="mb-5"></div>
+
     <div class="row">
           <button type="button" class="btn btn-secondary mb-3" (click)="addItem()">
       <i class="bi bi-plus-circle"></i> Add Item
@@ -49,11 +55,10 @@
   
   </form>
 
-  <div *ngIf="submittedInvoice" class="mt-5">
-   
-
+  <div class="mb-5"></div>
+  <div *ngIf="submittedInvoice" class="mt-5 text-white">
     <h3>Invoice Summary</h3>
-    <div class="card">
+    <div class="card bg-light text-dark">
       <div class="card-body">
         <p><strong>Date:</strong> {{ submittedInvoice.transactionDate | date }}</p>
         <p><strong>Discount:</strong> Rs. {{ submittedInvoice.discount }}</p>
@@ -69,4 +74,5 @@
       </div>
     </div>
   </div>
+</div>
 </div>

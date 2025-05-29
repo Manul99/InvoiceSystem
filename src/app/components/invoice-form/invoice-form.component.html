@@ -17,7 +17,7 @@
 
     <h4>Invoice Items</h4>
     <div formArrayName="items">
-      <div class="card mb-3" *ngFor="let item of items.controls; let i = index" [formGroupName]="i">
+      <div class="card mb-3" *ngFor="let item of item.controls; let i = index" [formGroupName]="i">
         <div class="card-body">
           <div class="row">
             <div class="col-md-4 mb-2">

@@ -1,0 +1,72 @@
+<!-- invoice.component.html with @ng-bootstrap/ng-bootstrap -->
+<div class="container mt-5">
+  <h2 class="mb-4">Create Invoice</h2>
+  <form [formGroup]="invoiceForm" (ngSubmit)="submitInvoice()">
+    <div class="row mb-3">
+      <label class="col-sm-2 col-form-label">Transaction Date</label>
+      <div class="col-sm-10">
+        <input type="date" class="form-control" formControlName="transactionDate">
+      </div>
+    </div>
+    <div class="row mb-3">
+      <label class="col-sm-2 col-form-label">Discount</label>
+      <div class="col-sm-10">
+        <input type="number" class="form-control" formControlName="discount">
+      </div>
+    </div>
+
+    <h4>Invoice Items</h4>
+    <div formArrayName="items">
+      <div class="card mb-3" *ngFor="let item of items.controls; let i = index" [formGroupName]="i">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-4 mb-2">
+              <input class="form-control" formControlName="productName" placeholder="Product Name">
+            </div>
+            <div class="col-md-2 mb-2">
+              <input type="number" class="form-control" formControlName="quantity" placeholder="Qty">
+            </div>
+            <div class="col-md-2 mb-2">
+              <input type="number" class="form-control" formControlName="unitPrice" placeholder="Unit Price">
+            </div>
+            <div class="col-md-2 mb-2">
+              <button type="button" class="btn btn-danger" (click)="removeItem(i)">
+                <i class="bi bi-x-circle"></i> Remove
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+          <button type="button" class="btn btn-secondary mb-3" (click)="addItem()">
+      <i class="bi bi-plus-circle"></i> Add Item
+    </button>
+    <button type="submit" class="btn btn-primary">
+      <i class="bi bi-save"></i> Submit Invoice
+    </button>
+    </div>
+  
+  </form>
+
+  <div *ngIf="submittedInvoice" class="mt-5">
+   
+
+    <h3>Invoice Summary</h3>
+    <div class="card">
+      <div class="card-body">
+        <p><strong>Date:</strong> {{ submittedInvoice.transactionDate | date }}</p>
+        <p><strong>Discount:</strong> Rs. {{ submittedInvoice.discount }}</p>
+        <p><strong>Total Amount:</strong> Rs. {{ submittedInvoice.totalAmount }}</p>
+        <p><strong>Balance Amount:</strong> Rs. {{ submittedInvoice.balanceAmount }}</p>
+
+        <h5 class="mt-4">Items</h5>
+        <ul class="list-group">
+          <li class="list-group-item" *ngFor="let item of submittedInvoice.items">
+            {{ item.productName }} - {{ item.quantity }} x {{ item.unitPrice }} = Rs.{{ item.quantity * item.unitPrice }}
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

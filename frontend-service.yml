@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: invoice-app
+spec:
+  selector:
+    app: invoice-app
+  type: LoadBalancer # Or NodePort if your cluster does not support LoadBalancer
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80

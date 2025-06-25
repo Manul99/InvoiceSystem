@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: invoice-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: invoice-app
+  template:
+    metadata:
+      labels:
+        app: invoice-app
+    spec:
+      containers:
+        - name: invoice-app
+          image: manulperera5665/invoice-app:frontend
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+          livenessProbe:
+            httpGet:
+              path: /index.html
+              port: 80
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /index.html
+              port: 80
+            initialDelaySeconds: 5
+            periodSeconds: 10
